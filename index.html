@@ -20,11 +20,12 @@
     <script>
       window.addEventListener('load', function () {
         var btnSave = document.getElementById('btnSave');
+        var _success = document.getElementById('success');
         var savedPrompt;
         if ('serviceWorker' in navigator) {                                                      
           navigator.serviceWorker.register('./service-worker.js').then(function (registration) {
             // 注册成功
-            var _success = document.getElementById('success');
+            
             _success.innerHTML='success';
             console.log('ServiceWorker registration successful with scope: ',registration.scope);
           }).catch(function (err) {
@@ -34,7 +35,8 @@
         }
         window.addEventListener('beforeinstallprompt', function (e) {
           e.preventDefault();                                                                    
-          btnSave.removeAttribute('disabled');                                                   
+          btnSave.removeAttribute('disabled');
+          _success.innerHTML = 'showButton'
           savedPrompt = e;                                                                       
           return false;
         });
